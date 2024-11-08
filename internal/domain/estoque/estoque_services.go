@@ -15,3 +15,7 @@ func (s *EstoqueService) Create(estoque *Estoque) error {
 func (s *EstoqueService) FindAll() ([]*Estoque, error) {
 	return s.repo.FindAll()
 }
+
+func (s *EstoqueService) UpdateQuantity(id, quantidade string) error {
+	return s.repo.UpdateQuantity(id, quantidade)
+}

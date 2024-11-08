@@ -10,5 +10,6 @@ type Estoque struct {
 
 type EstoqueRepository interface {
 	Save(estoque *Estoque) error
+	UpdateQuantity(id, quantidade string) error
 	FindAll() ([]*Estoque, error)
 }

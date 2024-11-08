@@ -26,7 +26,7 @@ func (r *EstoqueRespositorySqlite) FindAll() ([]*estoque.Estoque, error) {
 
 	for rows.Next() {
 		var e estoque.Estoque
-		err := rows.Scan(&e.ID, &e.Marca, &e.PrecoDeRevenda, &e.Quantidade, &e.ValorUnitario)
+		err := rows.Scan(&e.ID, &e.Marca, &e.Quantidade, &e.PrecoDeRevenda, &e.ValorUnitario)
 		if err != nil {
 			return nil, err
 		}
@@ -47,5 +47,10 @@ func (r *EstoqueRespositorySqlite) Save(estoque *estoque.Estoque) error {
 		id, estoque.Marca, estoque.Quantidade, estoque.ValorUnitario, estoque.PrecoDeRevenda,
 	)
 
+	return err
+}
+
+func (r *EstoqueRespositorySqlite) UpdateQuantity(id, quantidade string) error {
+	_, err := r.db.Exec("UPDATE estoque SET quantidade = ? WHERE id = ?", quantidade, id)
 	return err
 }

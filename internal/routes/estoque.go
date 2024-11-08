@@ -18,4 +18,5 @@ func InitRouterEstoque(db *sql.DB) {
 	// Definir rotas
 	http.HandleFunc("/estoque-list", handler.GetAll)
 	http.HandleFunc("/estoque-create", handler.CreateEstoque)
+	http.HandleFunc("/estoque-update-quantity", handler.UpdateQuantity)
 }

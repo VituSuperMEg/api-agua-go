@@ -11,6 +11,10 @@ import (
 type EstoqueHandler struct {
 	useCase *estoque.EstoqueUseCase
 }
+type EstoqueParams struct {
+	ID         string `json:"id"`
+	Quantidade string `json:"quantidade"`
+}
 
 func NewEstoqueHandler(uc *estoque.EstoqueUseCase) *EstoqueHandler {
 	return &EstoqueHandler{useCase: uc}
@@ -39,4 +43,23 @@ func (h *EstoqueHandler) CreateEstoque(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(c)
 	w.WriteHeader(http.StatusCreated)
+}
+
+func (h *EstoqueHandler) UpdateQuantity(w http.ResponseWriter, r *http.Request) {
+	var c EstoqueParams
+
+	err := json.NewDecoder(r.Body).Decode(&c)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	err = h.useCase.UpdateQuantity(c.ID, c.Quantidade)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(c)
+	w.WriteHeader(http.StatusOK)
 }
