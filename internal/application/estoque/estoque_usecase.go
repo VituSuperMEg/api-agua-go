@@ -10,6 +10,10 @@ func NewEstoqueUseCase(service *estoque.EstoqueService) *EstoqueUseCase {
 	return &EstoqueUseCase{service: service}
 }
 
+func (uc *EstoqueUseCase) FindAll() ([]*estoque.Estoque, error) {
+	return uc.service.FindAll()
+}
+
 func (uc *EstoqueUseCase) Create(estoque *estoque.Estoque) error {
 	return uc.service.Create(estoque)
 }

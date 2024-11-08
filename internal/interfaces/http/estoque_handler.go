@@ -3,6 +3,7 @@ package http
 import (
 	"api-agua/internal/application/estoque"
 	model "api-agua/internal/domain/estoque"
+	"api-agua/internal/utils"
 	"encoding/json"
 	"net/http"
 )
@@ -13,6 +14,12 @@ type EstoqueHandler struct {
 
 func NewEstoqueHandler(uc *estoque.EstoqueUseCase) *EstoqueHandler {
 	return &EstoqueHandler{useCase: uc}
+}
+
+func (h *EstoqueHandler) GetAll(w http.ResponseWriter, r *http.Request) {
+	utils.ResponseSuccess(w, r, func() (any, error) {
+		return h.useCase.FindAll()
+	})
 }
 
 func (h *EstoqueHandler) CreateEstoque(w http.ResponseWriter, r *http.Request) {

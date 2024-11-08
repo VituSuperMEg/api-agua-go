@@ -11,3 +11,7 @@ func NewEstoqueService(repo EstoqueRepository) *EstoqueService {
 func (s *EstoqueService) Create(estoque *Estoque) error {
 	return s.repo.Save(estoque)
 }
+
+func (s *EstoqueService) FindAll() ([]*Estoque, error) {
+	return s.repo.FindAll()
+}

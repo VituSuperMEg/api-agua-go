@@ -10,5 +10,5 @@ type Estoque struct {
 
 type EstoqueRepository interface {
 	Save(estoque *Estoque) error
-	// FindAll() ([]*Estoque, error)
+	FindAll() ([]*Estoque, error)
 }
